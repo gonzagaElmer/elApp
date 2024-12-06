@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">El App</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="long_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="long_text">
+        This is an all in one app developed using Kotlin. It is developed as a part of learning process while having a free time. It is a simple app that shows the current weather of a city.
+    </string>
     <string name="close">Close</string>
+    <string name="show_weather_data">Show weather data</string>
+    <string name="ok">OK</string>
+    <string name="notes">Notes:</string>
+    <string name="country_countrycode">Country, CountryCode</string>
+    <string name="temp_30">30°C</string>
+    <string name="date_today">Date today</string>
+    <string name="sample_description">Sample description</string>
+    <string name="sample_text">Sample text</string>
+    <string name="add_a_note">Add a note</string>
+    <string name="show_notes">All notes</string>
 </resources>

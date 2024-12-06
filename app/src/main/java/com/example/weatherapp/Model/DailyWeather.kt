@@ -1,9 +1,6 @@
 package com.example.weatherapp.Model
 
-import com.example.weatherapp.Utils.Helper
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.example.weatherapp.Helper.AppHelper
 
 class DailyWeather {
     var countryName:String? = null
@@ -23,6 +20,6 @@ class DailyWeather {
         this.maxTemp = maxTemp
         this.weatherType = weatherType
         this.weatherDescription = weatherDescription
-        this.formattedDate = Helper.formatRawDate(rawDate)
+        this.formattedDate = AppHelper.formatRawDate(rawDate)
     }
 }

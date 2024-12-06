@@ -4,25 +4,20 @@ package com.example.weatherapp.Activity
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.weatherapp.Adapter.MainAdapter
 import com.example.weatherapp.Fragment.MenuFragment
+import com.example.weatherapp.Fragment.WeatherFragment
 import com.example.weatherapp.Model.DailyWeather
 import com.example.weatherapp.R
-import com.example.weatherapp.Utils.Helper
+import com.example.weatherapp.Helper.AppHelper
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
@@ -42,20 +37,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         setContentLocation()
         setListeners(savedInstanceState)
-        setView()
 
         mProgressDialog = ProgressDialog(this)
 
-        if (isNetworkConnected()) {
+        if (AppHelper.isNetworkConnected(this)) {
             loadData()
         } else {
-            showToastMsg("No internet connection")
+            AppHelper.showToastMsg(this, "No internet connection")
         }
-    }
-
-    private fun setView() {
-        mBinding.weatherRv.layoutManager = LinearLayoutManager(this)
-        mBinding.weatherRv.adapter = MainAdapter(mDailyWeatherList)
     }
 
     private fun loadData() {
@@ -128,9 +117,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun dismissDialogAndIsShowError(isShowError:Boolean) {
         mProgressDialog?.dismiss()
-
         if (isShowError) {
-            showToastMsg("Fetching error.")
+            AppHelper.showToastMsg(this, "Fetching error.")
         }
     }
 
@@ -140,37 +128,30 @@ class MainActivity : AppCompatActivity() {
         if (mDailyWeatherList.size > 0) {
             val todayWeather = mDailyWeatherList[headerDataindex]
             mBinding.countryNameAndCode.text = "${todayWeather.countryName}, ${todayWeather.countryCode}"
-            mBinding.currentTemp.text = Helper.convertToCelcius(todayWeather.currentTemp).toString() + "°C"
-            mBinding.currentMaxTemp.text = Helper.convertToCelcius(todayWeather.maxTemp).toString() + "°C"
-            mBinding.currentMinTemp.text = Helper.convertToCelcius(todayWeather.minTemp).toString() + "°C"
-            mBinding.currentWeatherType.text = Helper.getWeatherType(todayWeather.weatherType.toString())
+            mBinding.currentTemp.text = AppHelper.convertToCelcius(todayWeather.currentTemp).toString() + "°C"
+            mBinding.currentMaxTemp.text = AppHelper.convertToCelcius(todayWeather.maxTemp).toString() + "°C"
+            mBinding.currentMinTemp.text = AppHelper.convertToCelcius(todayWeather.minTemp).toString() + "°C"
+            mBinding.currentWeatherType.text = AppHelper.getWeatherType(todayWeather.weatherType.toString())
             Picasso.get().load("https://picsum.photos/200").into(mBinding.currentWeatherIcon)
             mBinding.currentDate.text = todayWeather.formattedDate
             mBinding.currentDesc.text = "There will be ${todayWeather.weatherDescription} today."
         }
-        // remove the displayed data
-        mDailyWeatherList.removeAt(headerDataindex)
-        mBinding.weatherRv.adapter?.notifyDataSetChanged()
     }
 
     private fun setListeners(savedInstanceState: Bundle?) {
         mBinding.header.menuBtn.setOnClickListener {
             if (savedInstanceState == null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_frame_layout, MenuFragment.newInstance("param1", "param2"))
+                    .replace(R.id.main_frame_layout, MenuFragment())
                     .commit()
             }
         }
 
-        mBinding.swipeRefreshList.setOnRefreshListener {
-            if (mBinding.swipeRefreshList.isRefreshing) {
-                mBinding.swipeRefreshList.isRefreshing = false
-            }
-
-            if (isNetworkConnected()) {
-                loadData()
-            } else {
-                showToastMsg("No internet connection")
+        mBinding.weatherLayout.setOnClickListener {
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame_layout, WeatherFragment())
+                    .commit()
             }
         }
     }
@@ -182,19 +163,5 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
-
-    // create a function to check if user is connected to the internet or wifi
-    @Suppress("DEPRECATION")
-    @SuppressLint("ServiceCast")
-    private fun isNetworkConnected(): Boolean {
-        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
-
-
-    private fun showToastMsg(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

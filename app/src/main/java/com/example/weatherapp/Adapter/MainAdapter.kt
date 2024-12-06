@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.Model.DailyWeather
 import com.example.weatherapp.R
-import com.example.weatherapp.Utils.Helper
+import com.example.weatherapp.Helper.AppHelper
 import com.squareup.picasso.Picasso
 
 class MainAdapter(private var items:List<DailyWeather>):RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
@@ -25,8 +25,8 @@ class MainAdapter(private var items:List<DailyWeather>):RecyclerView.Adapter<Mai
             Picasso.get().load("https://picsum.photos/200").into(wIcon)
             wDate.text = item.formattedDate
             wType.text = "${item.weatherType} is expected on this day."
-            wMaxTemp.text = Helper.convertToCelcius(item.maxTemp).toString() + "°C"
-            wMinTemp.text = Helper.convertToCelcius(item.minTemp).toString() + "°C"
+            wMaxTemp.text = AppHelper.convertToCelcius(item.maxTemp).toString() + "°C"
+            wMinTemp.text = AppHelper.convertToCelcius(item.minTemp).toString() + "°C"
         }
     }
 

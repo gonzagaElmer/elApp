@@ -1,10 +1,15 @@
-package com.example.weatherapp.Utils
+package com.example.weatherapp.Helper
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.appcompat.app.AppCompatActivity.CONNECTIVITY_SERVICE
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
+import android.widget.Toast
 
-class Helper {
+class AppHelper {
     companion object {
         fun convertToCelcius(Fahrenheit: Int?): Int {
             if (Fahrenheit == null) {
@@ -41,6 +46,19 @@ class Helper {
                 e.printStackTrace()
                 null
             }
+        }
+
+        @Suppress("DEPRECATION")
+        @SuppressLint("ServiceCast")
+        fun isNetworkConnected(context:Context): Boolean {
+            val connectivityManager = context.getSystemService( CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
+
+        fun showToastMsg(context: Context, msg: String) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
     }
 }

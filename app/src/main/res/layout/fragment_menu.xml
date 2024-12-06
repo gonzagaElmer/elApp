@@ -40,7 +40,7 @@
             android:paddingHorizontal="16dp"
             android:textColor="@color/white"
             android:background="@drawable/custom_round_corners_blue"
-            android:text="@string/close" />
+            android:text="@string/ok" />
 
 
     </LinearLayout>
