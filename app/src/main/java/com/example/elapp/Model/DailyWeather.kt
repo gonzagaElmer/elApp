@@ -1,6 +1,6 @@
-package com.example.weatherapp.Model
+package com.example.elapp.Model
 
-import com.example.weatherapp.Helper.AppHelper
+import com.example.elapp.Helper.AppHelper
 
 class DailyWeather {
     var countryName:String? = null

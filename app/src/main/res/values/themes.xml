@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.WeatherApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ElApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/custom_blue</item>
     </style>
 
-    <style name="Theme.WeatherApp" parent="Base.Theme.WeatherApp" />
+    <style name="Theme.ElApp" parent="Base.Theme.ElApp" />
 </resources>

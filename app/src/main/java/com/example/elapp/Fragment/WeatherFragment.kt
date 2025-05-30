@@ -1,4 +1,4 @@
-package com.example.weatherapp.Fragment
+package com.example.elapp.Fragment
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -9,11 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherapp.Adapter.MainAdapter
-import com.example.weatherapp.Model.DailyWeather
-import com.example.weatherapp.Helper.NetworkHelper
-import com.example.weatherapp.Helper.AppHelper
-import com.example.weatherapp.databinding.FragmentWeatherBinding
+import com.example.elapp.Adapter.MainAdapter
+import com.example.elapp.Model.DailyWeather
+import com.example.elapp.Helper.NetworkHelper
+import com.example.elapp.Helper.AppHelper
+import com.example.elapp.databinding.FragmentWeatherBinding
 import org.json.JSONObject
 
 class WeatherFragment : Fragment() {
@@ -29,7 +29,6 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentWeatherBinding.inflate(inflater, container, false)
-
         setListeners()
         setView()
         mProgressDialog = ProgressDialog(requireContext())
@@ -43,15 +42,9 @@ class WeatherFragment : Fragment() {
         return mBinding.root
     }
 
-
-    private fun loadData() {
-        mProgressDialog?.setMessage("Fetching data...")
-        mProgressDialog?.show()
-
-        Handler().postDelayed({
-            fetch()
-        }, DELAY_MILLS)
-
+    private fun setView() {
+        mBinding.weatherRv.layoutManager = LinearLayoutManager(requireActivity())
+        mBinding.weatherRv.adapter = MainAdapter(mDailyWeatherList)
     }
 
     private fun setListeners() {
@@ -72,8 +65,18 @@ class WeatherFragment : Fragment() {
         }
     }
 
+    private fun loadData() {
+        mProgressDialog?.setMessage("Fetching data...")
+        mProgressDialog?.show()
+
+        Handler().postDelayed({
+            fetch()
+        }, DELAY_MILLS)
+
+    }
+
     private fun fetch() {
-        NetworkHelper.fetchData(requireContext(), object : NetworkHelper.NetworkCallback {
+        NetworkHelper.fetchData(requireActivity(), object : NetworkHelper.NetworkCallback {
             override fun onSuccess(responseObj: JSONObject) {
                 try {
                     // get address
@@ -120,11 +123,6 @@ class WeatherFragment : Fragment() {
                 dismissDialogAndIsShowError(true)
             }
         })
-    }
-
-    private fun setView() {
-        mBinding.weatherRv.layoutManager = LinearLayoutManager(requireActivity())
-        mBinding.weatherRv.adapter = MainAdapter(mDailyWeatherList)
     }
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")

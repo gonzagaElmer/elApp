@@ -1,18 +1,22 @@
 <resources>
     <string name="app_name">El App</string>
+    <string name="app_desc">This is an all in one app developed using Kotlin. It is developed as a part of learning process while having a free time. It is a simple app that shows the current weather of a city.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="long_text">
-        This is an all in one app developed using Kotlin. It is developed as a part of learning process while having a free time. It is a simple app that shows the current weather of a city.
-    </string>
+    <string name="short_text">This is a short sample text.</string>
+    <string name="long_text">This is a long sample text description. This is a long sample text description. This is a long sample text description. This is a long sample text description. This is a long sample text description. </string>
     <string name="close">Close</string>
     <string name="show_weather_data">Show weather data</string>
     <string name="ok">OK</string>
     <string name="notes">Notes:</string>
     <string name="country_countrycode">Country, CountryCode</string>
     <string name="temp_30">30°C</string>
-    <string name="date_today">Date today</string>
-    <string name="sample_description">Sample description</string>
-    <string name="sample_text">Sample text</string>
+    <string name="weather_date">Weather date</string>
+    <string name="weather_description">Weather Description</string>
+    <string name="weather_type">Weather Type</string>
     <string name="add_a_note">Add a note</string>
     <string name="show_notes">All notes</string>
+    <string name="title_label">Title:</string>
+    <string name="description_label">Description:</string>
+    <string name="save">Save</string>
+    <string name="adding_a_note">Adding a note</string>
 </resources>

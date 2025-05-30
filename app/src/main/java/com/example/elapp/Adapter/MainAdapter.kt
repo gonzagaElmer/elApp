@@ -1,4 +1,4 @@
-package com.example.weatherapp.Adapter
+package com.example.elapp.Adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.Model.DailyWeather
-import com.example.weatherapp.R
-import com.example.weatherapp.Helper.AppHelper
+import com.example.elapp.Model.DailyWeather
+import com.example.elapp.R
+import com.example.elapp.Helper.AppHelper
 import com.squareup.picasso.Picasso
 
 class MainAdapter(private var items:List<DailyWeather>):RecyclerView.Adapter<MainAdapter.MainViewHolder>() {

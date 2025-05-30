@@ -1,4 +1,4 @@
-package com.example.weatherapp.Model
+package com.example.elapp.Model
 
 data class Note(val id: Int, val title: String, val content: String) {
     override fun toString(): String {

@@ -1,9 +1,10 @@
-package com.example.weatherapp.Helper
+package com.example.elapp.Helper
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.weatherapp.Model.Note
+import com.example.elapp.Model.Note
 
 class NoteDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -27,9 +28,30 @@ class NoteDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
 
     fun insertNote(note: Note) {
         val db = writableDatabase
-        val title = note.title
-        val content = note.content
-        val insertData = "INSERT INTO $TABLE_NAME ($COL_TITLE, $COL_CONTENT) VALUES ('$title', '$content')"
-        db.execSQL(insertData)
+        val values = ContentValues().apply {
+            put(COL_TITLE, note.title)
+            put(COL_CONTENT, note.content)
+        }
+        db.insert(TABLE_NAME, null, values)
+        db.close()
     }
+
+    fun getAllNotes(): List<Note> {
+        val notesList = mutableListOf<Note>()
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
+            val title = cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE))
+            val content = cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTENT))
+            notesList.add(Note(id, title, content))
+        }
+
+        cursor.close()
+        db.close()
+        return notesList
+    }
+    
 }

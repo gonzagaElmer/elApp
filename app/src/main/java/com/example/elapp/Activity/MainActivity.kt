@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.weatherapp.Activity
+package com.example.elapp.Activity
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -13,12 +13,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.weatherapp.Fragment.MenuFragment
-import com.example.weatherapp.Fragment.WeatherFragment
-import com.example.weatherapp.Model.DailyWeather
-import com.example.weatherapp.R
-import com.example.weatherapp.Helper.AppHelper
-import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.elapp.Fragment.AddNoteFragment
+import com.example.elapp.Fragment.MenuFragment
+import com.example.elapp.Fragment.ShowNoteFragment
+import com.example.elapp.Fragment.WeatherFragment
+import com.example.elapp.Model.DailyWeather
+import com.example.elapp.R
+import com.example.elapp.Helper.AppHelper
+import com.example.elapp.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
@@ -143,6 +145,7 @@ class MainActivity : AppCompatActivity() {
             if (savedInstanceState == null) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frame_layout, MenuFragment())
+                    .addToBackStack(null)
                     .commit()
             }
         }
@@ -151,6 +154,25 @@ class MainActivity : AppCompatActivity() {
             if (savedInstanceState == null) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frame_layout, WeatherFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+        mBinding.addNoteBtn.setOnClickListener {
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame_layout, AddNoteFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+        mBinding.showNotesBtn.setOnClickListener {
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame_layout, ShowNoteFragment())
+                    .addToBackStack(null)
                     .commit()
             }
         }
